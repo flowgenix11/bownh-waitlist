@@ -1,0 +1,204 @@
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  .wrap { max-width: 600px; margin: 0 auto; padding: 2rem 1rem 3rem; font-family: var(--font-sans); }
+  .badge { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 10px; border-radius: 20px; background: #CECBF6; color: #3C3489; margin-bottom: 1.25rem; }
+  .headline { font-size: 26px; font-weight: 500; color: var(--color-text-primary); line-height: 1.3; margin-bottom: 0.5rem; }
+  .sub { font-size: 14px; color: var(--color-text-secondary); margin-bottom: 2rem; line-height: 1.6; }
+  .form-card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1.5rem; }
+  .field { margin-bottom: 1.25rem; }
+  .field label { display: block; font-size: 13px; font-weight: 500; color: var(--color-text-secondary); margin-bottom: 6px; }
+  .field input, .field select, .field textarea { width: 100%; font-family: var(--font-sans); font-size: 14px; color: var(--color-text-primary); background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-md); padding: 10px 12px; outline: none; transition: border-color 0.15s; }
+  .field input:focus, .field select:focus, .field textarea:focus { border-color: #7F77DD; box-shadow: 0 0 0 3px rgba(127,119,221,0.12); }
+  .field textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
+  .field select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+  .tag { font-size: 13px; padding: 6px 12px; border-radius: 20px; border: 0.5px solid var(--color-border-tertiary); background: var(--color-background-secondary); color: var(--color-text-secondary); cursor: pointer; transition: all 0.15s; user-select: none; }
+  .tag.selected { background: #EEEDFE; border-color: #AFA9EC; color: #3C3489; }
+  .divider { border: none; border-top: 0.5px solid var(--color-border-tertiary); margin: 1.5rem 0; }
+  .section-label { font-size: 11px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: var(--color-text-tertiary); margin-bottom: 1rem; }
+  .submit-btn { width: 100%; padding: 12px; background: #534AB7; color: #fff; border: none; border-radius: var(--border-radius-md); font-family: var(--font-sans); font-size: 15px; font-weight: 500; cursor: pointer; transition: background 0.15s, transform 0.1s; margin-top: 0.25rem; }
+  .submit-btn:hover:not(:disabled) { background: #3C3489; }
+  .submit-btn:active:not(:disabled) { transform: scale(0.98); }
+  .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  .helper { font-size: 12px; color: var(--color-text-tertiary); margin-top: 4px; }
+  .error-msg { font-size: 12px; color: #D85A30; margin-top: 6px; display: none; }
+  .success { display: none; text-align: center; padding: 2.5rem 1.5rem; }
+  .success-icon { font-size: 40px; margin-bottom: 1rem; color: #534AB7; }
+  .success h2 { font-size: 20px; font-weight: 500; margin-bottom: 0.5rem; color: var(--color-text-primary); }
+  .success p { font-size: 14px; color: var(--color-text-secondary); line-height: 1.6; }
+  .required { color: #D85A30; margin-left: 2px; }
+  .err-banner { display: none; background: #FAECE7; border: 0.5px solid #F0997B; border-radius: var(--border-radius-md); padding: 10px 14px; font-size: 13px; color: #993C1D; margin-bottom: 1rem; }
+</style>
+
+<div class="wrap">
+  <h2 class="sr-only">BOWNH early access interest form</h2>
+  <div class="badge">Early access — instagram</div>
+  <h1 class="headline">Stop validating wrong.<br>Get on the list.</h1>
+  <p class="sub">BOWNH gives your startup idea an honest verdict — KILL, ITERATE, or PROCEED — before you waste months building. Fill this out and we'll reach out when we open spots.</p>
+
+  <div class="form-card" id="formCard">
+    <div class="err-banner" id="errBanner"></div>
+    <div class="section-label">About you</div>
+
+    <div class="field-row">
+      <div class="field">
+        <label>First name<span class="required">*</span></label>
+        <input type="text" id="fname" placeholder="Rohan" />
+      </div>
+      <div class="field">
+        <label>Last name</label>
+        <input type="text" id="lname" placeholder="Mehta" />
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Email address<span class="required">*</span></label>
+      <input type="email" id="email" placeholder="you@example.com" />
+      <p class="helper">We'll send your early access invite here.</p>
+    </div>
+
+    <div class="field">
+      <label>Instagram handle</label>
+      <input type="text" id="insta" placeholder="@yourhandle" />
+      <p class="helper">Optional — helps us confirm you found us through Instagram.</p>
+    </div>
+
+    <hr class="divider" />
+    <div class="section-label">Your startup situation</div>
+
+    <div class="field">
+      <label>Where are you right now?<span class="required">*</span></label>
+      <select id="stage">
+        <option value="" disabled selected>Choose one</option>
+        <option>I have an idea, haven't started building</option>
+        <option>I'm actively building an MVP</option>
+        <option>I've launched but want to validate a pivot</option>
+        <option>I'm a founder who's raised money</option>
+        <option>I'm exploring ideas, nothing concrete yet</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>What's your idea about? (one line is fine)</label>
+      <textarea id="idea" placeholder="e.g. A tool that helps freelancers auto-invoice their clients based on tracked time..."></textarea>
+    </div>
+
+    <div class="field">
+      <label>What do you want most from BOWNH?</label>
+      <div class="tags" id="tags">
+        <div class="tag" data-val="Honest verdict">Honest verdict</div>
+        <div class="tag" data-val="Market analysis">Market analysis</div>
+        <div class="tag" data-val="MVP blueprint">MVP blueprint</div>
+        <div class="tag" data-val="Competitor research">Competitor research</div>
+        <div class="tag" data-val="Kill signal before I waste money">Kill signal before I waste money</div>
+        <div class="tag" data-val="Product roadmap">Product roadmap</div>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <div class="field">
+      <label>How did you find out about BOWNH?</label>
+      <select id="source">
+        <option value="" disabled selected>Choose one</option>
+        <option>Instagram post</option>
+        <option>Someone shared it with me</option>
+        <option>Twitter / X</option>
+        <option>LinkedIn</option>
+        <option>Word of mouth</option>
+        <option>Other</option>
+      </select>
+    </div>
+
+    <button class="submit-btn" id="submitBtn">Join the waitlist ↗</button>
+  </div>
+
+  <div class="success" id="successCard">
+    <div class="success-icon"><i class="ti ti-check" aria-hidden="true"></i></div>
+    <h2>You're on the list.</h2>
+    <p>We'll reach out to <strong id="confirmedEmail" style="color:#534AB7;"></strong> when your early access spot opens.<br><br>In the meantime, share BOWNH with a founder who's been building the wrong thing.</p>
+  </div>
+</div>
+
+<script>
+  const SUPABASE_URL = 'https://nrbnyrbdqjjdaipzcsmi.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5yYm55cmJkcWpqZGFpcHpjc21pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgzMDYyMDAsImV4cCI6MjA4Mzg4MjIwMH0.qgqWA_gUH2sdh0ewyngm6uHDpC9RVIpg2ujlB3bPgMY';
+
+  document.querySelectorAll('.tag').forEach(t => {
+    t.addEventListener('click', () => t.classList.toggle('selected'));
+  });
+
+  document.getElementById('submitBtn').addEventListener('click', async () => {
+    const fname = document.getElementById('fname').value.trim();
+    const lname = document.getElementById('lname').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const insta = document.getElementById('insta').value.trim();
+    const stage = document.getElementById('stage').value;
+    const idea = document.getElementById('idea').value.trim();
+    const source = document.getElementById('source').value;
+    const wants = Array.from(document.querySelectorAll('.tag.selected')).map(t => t.dataset.val);
+
+    const banner = document.getElementById('errBanner');
+    banner.style.display = 'none';
+
+    if (!fname) { showErr('Please enter your first name.'); return; }
+    if (!email || !email.includes('@')) { showErr('Please enter a valid email address.'); return; }
+    if (!stage) { showErr('Please select where you are in your startup journey.'); return; }
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Submitting...';
+
+    try {
+      const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({
+          first_name: fname,
+          last_name: lname || null,
+          email: email,
+          instagram_handle: insta || null,
+          startup_stage: stage,
+          idea_description: idea || null,
+          wants_from_bownh: wants.length ? wants : null,
+          source: source || null
+        })
+      });
+
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        if (err.code === '23505') {
+          showErr('This email is already on the waitlist!');
+        } else {
+          showErr('Something went wrong. Please try again.');
+        }
+        btn.disabled = false;
+        btn.textContent = 'Join the waitlist ↗';
+        return;
+      }
+
+      document.getElementById('confirmedEmail').textContent = email;
+      document.getElementById('formCard').style.display = 'none';
+      document.getElementById('successCard').style.display = 'block';
+
+    } catch (e) {
+      showErr('Network error. Please check your connection and try again.');
+      btn.disabled = false;
+      btn.textContent = 'Join the waitlist ↗';
+    }
+  });
+
+  function showErr(msg) {
+    const banner = document.getElementById('errBanner');
+    banner.textContent = msg;
+    banner.style.display = 'block';
+    banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+</script>
